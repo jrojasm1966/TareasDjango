@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block body %}
+<body class="hold-transition sidebar-mini">
+    <div class="wrapper">
+    
+    <!-- Navbar -->
+    {% include 'navbar.html' %}
+    
+    <!-- Main Sidebar Container -->
+    {% include 'sidebar.html' %}
+    
+    <div class="content-wrapper">
+        <!-- Content Wrapper. Contains page content -->
+        {% include 'content_wrapper.html' %}
+        
+        <!-- Main content -->
+        {% block main-content %}
+        {% endblock %}
+    </div>
+    
+    <!-- Control Sidebar -->
+    {% include 'control_sidebar.html' %}
+    
+    <!-- Main Footer -->
+    {% include 'footer.html' %}
+    
+    </div>
+    <!-- ./wrapper -->
+    
+    <!-- REQUIRED SCRIPTS -->
+    {% block script %}
+    <!-- jQuery -->
+        <script type="application/javascript">
+            $(function () {
+                $('#data').DataTable({
+                    responsive: true,
+                    autoWidth: false,
+                    dom: 'lfrtBip',
+                    buttons: [
+                     'copy', 'csv', 'excel', 'pdf', 'print'
+                     ]
+                });
+            });
+        </script>
+    {% endblock %}
+
+    </body>
+{% endblock %}

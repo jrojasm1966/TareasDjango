@@ -1,0 +1,31 @@
+{% extends 'main_content.html' %}
+
+{% block  content %}
+<h1>Listado de Leads</h1>
+<table class="table" id="data">
+  <thead>
+    <tr>
+      <th scope="col">ID #</th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Apellido</th>
+      <th scope="col">Fecha Registro</th>
+      <th scope="col">Correo</th>
+      <th scope="col">Sitio</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for lead in lista_leads %}
+    <tr>
+      <!-- <th scope="row">1</th> -->
+      <td>{{lead.id}}</td>
+      <td>{{lead.first_name}}</td>
+      <td>{{lead.last_name}}</td>
+      <td>{{lead.registered_datetime}}</td>
+      <td>{{lead.email}}</td>
+      <td>{{lead.site.domain_name}}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}
