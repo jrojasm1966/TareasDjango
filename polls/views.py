@@ -40,3 +40,12 @@ def docs(request):
         'lista_docs': docs,
     }
     return render(request, 'polls/docs.html', context)
+
+def librosPublicadores(request):
+    libros = Book.objects.all()
+    publicadores = Publisher.objects.all()
+    context = {
+        'lista_libros': libros,
+        'lista_publicadores': publicadores,
+    }
+    return render(request, 'polls/LibroPublicador.html', context)

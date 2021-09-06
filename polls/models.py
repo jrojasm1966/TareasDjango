@@ -47,7 +47,6 @@ class Documento(models.Model):
         db_table = 'billing'
         
 
-
 class Book(models.Model):
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=255)
@@ -56,7 +55,8 @@ class Book(models.Model):
 
 
 class Publisher(models.Model):
-	name = models.CharField(max_length=255)
-	books = models.ManyToManyField(Book, related_name="publishers")
-	created_at = models.DateTimeField(auto_now_add=True)
-	updated_at = models.DateTimeField(auto_now=True)
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=255)
+    books = models.ManyToManyField(Book, related_name="publishers")
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
