@@ -77,12 +77,11 @@ def getLibro(request):
 
 
 def updateLibro(request):
-    getBook = Book.objects.get(id=request.POST['id'])
+    #getBook = Book.objects.get(id=request.POST['id'])
     #Book.title = request.POST['titulo']
     #update()
 
-    Book.objects.update(
-    #id = request.POST['id'],
+    Book.objects.filter(id = request.POST['id']).update(
     title = request.POST['titulo'],
     )
     
