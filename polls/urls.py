@@ -11,4 +11,11 @@ urlpatterns = [
     path('leads', views.leads, name='leads'),
     path('docs', views.docs, name='docs'),
     path('librosPublicadores', views.librosPublicadores, name='librosPublicadores'),
+    path('librosPublicadoresMant', views.librosPublicadoresMant, name='librosPublicadoresMant'),
+    
+    path('createLibro', views.createLibro),
+    path('updateLibro', views.updateLibro, name='updateLibro'),
+    path('getLibro', views.getLibro, name='getLibro'),
+    path('deleteLibro', views.deleteLibro),
+
 ]

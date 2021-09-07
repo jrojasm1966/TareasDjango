@@ -2,7 +2,7 @@
 #from _typeshed import SupportsItems
 from polls.models import Client
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import *
 
 #def index(request):
@@ -49,3 +49,46 @@ def librosPublicadores(request):
         'lista_publicadores': publicadores,
     }
     return render(request, 'polls/LibroPublicador.html', context)
+
+
+def librosPublicadoresMant(request):
+    libros = Book.objects.all()
+    publicadores = Publisher.objects.all()
+    context = {
+        'lista_libros': libros,
+        'lista_publicadores': publicadores,
+    }
+    return render(request, 'polls/LibroPublicadorMant.html', context)
+
+
+def createLibro(request):
+    Book.objects.create(
+    titulo = request.POST['titulo'],
+    )
+    return redirect('/librosPublicadoresMant')
+
+
+def getLibro(request):
+    getBook = Book.objects.get(id=request.POST['id'])
+    context = {
+        "getBook": getBook
+    }
+    return render(request,'polls/EditlibroPublicador.html', context)
+
+
+def updateLibro(request):
+    getBook = Book.objects.get(id=request.POST['id'])
+    #Book.title = request.POST['titulo']
+    #update()
+
+    Book.objects.update(
+    #id = request.POST['id'],
+    title = request.POST['titulo'],
+    )
+    
+    return redirect('/librosPublicadoresMant')
+
+
+def deleteLibro(request):
+    getBook = Book.objects.get(id=request.POST['id']).delete()
+    return redirect('/librosPublicadoresMant')
