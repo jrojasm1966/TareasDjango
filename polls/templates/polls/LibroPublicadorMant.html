@@ -1,65 +1,92 @@
 {% extends 'main_content.html' %}
 
-{% block  content %}
+{% block content %}
+    <h1>Listado de Publicadores</h1>
+    <table class="table" id="data">
+      <thead>
+        <tr>
+          <th scope="col">ID #</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Sus Libros</th>
+          <th scope="col">Fecha Creación</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for publicador in lista_publicadores %}
+        <tr>
+          <!-- <th scope="row">1</th> -->
+          <td>{{publicador.id}}</td>
+          <td>{{publicador.name}}</td>
+          <td> 
+            {% for book in publicador.books.all %} 
+                {{ book.title }} 
+            {% endfor%}
+          </td>
+          <td>{{publicador.created_at}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
 <h1>Listado de Libros</h1>
-<table class="table" id="data">
-  <thead>
-    <tr>
-      <th scope="col">ID #</th>
-      <th scope="col">Título</th>
-      <th scope="col">Fecha Creación</th>
-      <th scope="col">Acción</th>
-      <th scope="col"></th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for libro in lista_libros %}
-    <tr>
-      <!-- <th scope="row">1</th> -->
-      <td>{{libro.id}}</td>
-      <td>{{libro.title}}</td>
-      <td>{{libro.created_at}}</td>
-      <td>
-          <form action="getLibro" method="POST">
-              {% csrf_token %}
-              <input type="hidden" name="id" value="{{libro.id}}">
-              <button type="submit" class="btn btn-sm btn-outline-warning">Editar</button>
-          </form>
-          <form action="deleteLibro" method="POST">
-              {% csrf_token %}
-              <input type="hidden" name="id" value="{{libro.id}}">
-              <button type="submit" class="btn btn-sm btn-outline-danger">Eliminar</button>
-          </form>
-      </td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
+<div class="container">
+    <p>
+      <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#nuevoLibro" aria-expanded="false" aria-controls="nuevoLibro">
+                Nuevo Libro ( Ingresar/No Ingresar ) 
+      </button>
+    </p>
 
-<h1>Listado de Publicadores</h1>
-<table class="table" id="data">
-  <thead>
-    <tr>
-      <th scope="col">ID #</th>
-      <th scope="col">Nombre</th>
-      <th scope="col">Fecha Creación</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for publicador in lista_publicadores %}
-    <tr>
-      <!-- <th scope="row">1</th> -->
-      <td>{{publicador.id}}</td>
-      <td>{{publicador.name}}</td>
-      <td> 
-          {% for libro in publicador.libros.all %}
-            {{ libro.titulo }}
-          {% endfor%}
-      </td>
-      <td>{{publicador.created_at}}</td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
+        <div class="collapse" id="nuevoLibro">
+            <form class="text-center my-5" method="POST" action="createLibro">
+            {% csrf_token %}
+                <div class="mb-3">
+                    <label for="librotitulo" class="form-label">Libro:</label>
+                    <input type="text" class="form-control" id="librotitulo" name="librotitulo" placeholder="Ingrese Título del Libro">
+                </div>
+                <div class="mb-3">
+                    <input type="submit" class="btn btn-success" value="Enviar datos">
+                </div>
+            </form>
+        </div>
 
+    <table class="table" id="data">
+      <thead>
+        <tr>
+          <th scope="col">ID #</th>
+          <th scope="col">Título</th>
+          <th scope="col">Fecha Creación</th>
+          <th scope="col">Acción</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for libro in lista_libros %}
+        <tr>
+          <!-- <th scope="row">1</th> -->
+          <td>{{libro.id}}</td>
+          <td>{{libro.title}}</td>
+          <td>{{libro.created_at}}</td>
+          <td>
+              <form action="getLibro" method="POST">
+                  {% csrf_token %}
+                  <input type="hidden" name="id" value="{{libro.id}}">
+                  <button type="submit" class="btn btn-sm btn-outline-warning">Editar Libro</button>
+              </form>
+              <form action="deleteLibro" method="POST">
+                  {% csrf_token %}
+                  <input type="hidden" name="id" value="{{libro.id}}">
+                  <button type="submit" class="btn btn-sm btn-outline-danger">Eliminar Libro</button>
+              </form>
+              <form action="deleteRelacionLibroEditor" method="POST">
+                  {% csrf_token %}
+                  <input type="hidden" name="id" value="{{libro.id}}">
+                  <button type="submit" class="btn btn-sm btn-outline-danger">Eliminar Relacion Publicador</button>
+              </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+</div>
 {% endblock %}

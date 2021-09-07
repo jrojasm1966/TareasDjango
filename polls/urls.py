@@ -17,5 +17,6 @@ urlpatterns = [
     path('updateLibro', views.updateLibro, name='updateLibro'),
     path('getLibro', views.getLibro, name='getLibro'),
     path('deleteLibro', views.deleteLibro),
+    path('deleteRelacionLibroEditor', views.deleteRelacionLibroEditor),
 
 ]

@@ -1,5 +1,6 @@
 #from djangoAdmin.polls.models import Client
 #from _typeshed import SupportsItems
+from time import gmtime, strftime, localtime
 from polls.models import Client
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
@@ -54,17 +55,22 @@ def librosPublicadores(request):
 def librosPublicadoresMant(request):
     libros = Book.objects.all()
     publicadores = Publisher.objects.all()
+    #publicadores_libros = Publisher_Books.objects.all()
     context = {
         'lista_libros': libros,
         'lista_publicadores': publicadores,
+    #    'publicadores_libros': publicadores_libros,
     }
     return render(request, 'polls/LibroPublicadorMant.html', context)
 
 
 def createLibro(request):
-    Book.objects.create(
-    titulo = request.POST['titulo'],
-    )
+    # Forma 1 de Añadir un registro de tabla:
+    #Book.objects.create(title = request.POST['librotitulo'],created_at = localtime,updated_at = localtime)
+    
+    # Otra forma de Añadir un registro de tabla:
+    libro = Book(title= request.POST['librotitulo'],created_at = localtime,updated_at = localtime)
+    libro.save()
     return redirect('/librosPublicadoresMant')
 
 
@@ -77,17 +83,21 @@ def getLibro(request):
 
 
 def updateLibro(request):
-    #getBook = Book.objects.get(id=request.POST['id'])
-    #Book.title = request.POST['titulo']
-    #update()
-
-    Book.objects.filter(id = request.POST['id']).update(
-    title = request.POST['titulo'],
-    )
-    
+    Book.objects.filter(id = request.POST['id']).update(title = request.POST['titulo'])
     return redirect('/librosPublicadoresMant')
 
 
 def deleteLibro(request):
-    getBook = Book.objects.get(id=request.POST['id']).delete()
+    Book.objects.get(id = request.POST['id']).delete()
+    return redirect('/librosPublicadoresMant')
+
+def deleteRelacionLibroEditor(request):
+    this_book = Book.objects.get(id = request.POST['id'])	# recupera una instancia de un libro
+    this_publisher = Publisher.objects.get(id=2)	# recuperar una instancia de un editor
+        
+    # 2 opciones que hacen lo mismo
+    this_publisher.books.remove(this_book)		# eliminar el libro de la lista de libros de este editor
+    # O
+    #this_book.publishers.remove(this_publisher)	# eliminar al editor de la lista de editores de este libro
+
     return redirect('/librosPublicadoresMant')
