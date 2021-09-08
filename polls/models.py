@@ -47,8 +47,6 @@ class Documento(models.Model):
         db_table = 'billing'
         
 
-
-
 class Book(models.Model):
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=255)

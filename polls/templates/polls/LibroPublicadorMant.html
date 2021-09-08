@@ -18,6 +18,9 @@
           <td>{{publicador.id}}</td>
           <td>{{publicador.name}}</td>
           <td> 
+{% comment %} 
+Agregar separadores libros asociados a Publicador
+{% endcomment %}            
             {% for book in publicador.books.all %} 
                 {{ book.title }} 
             {% endfor%}
