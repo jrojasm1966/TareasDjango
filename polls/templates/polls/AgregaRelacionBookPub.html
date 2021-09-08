@@ -16,7 +16,7 @@
             </div>
         </form>
 
-    <h1>Publicadores Asociados</h1>
+    <h1>Publicadores Disponibles</h1>
     <table class="table" id="data">
       <thead>
         <tr>
@@ -26,18 +26,18 @@
         </tr>
       </thead>
       <tbody>
-        {% for publicador in getBook.publishers.all %} 
+        {% for publicador in lista_publicadores %} 
         <tr>
           <!-- <th scope="row">1</th> -->
           <td>{{publicador.id}}</td>
           <td>{{publicador.name}}</td>
           <td>{{publicador.created_at}}</td>
           <td>
-              <form action="deleteRelacion" method="POST">
+              <form action="agregaRelacion" method="POST">
                   {% csrf_token %}
                   <input type="hidden" name="id" value="{{getBook.id}}">
                   <input type="hidden" name="idPub" value="{{publicador.id}}">
-                  <button type="submit" class="btn btn-sm btn-outline-danger">Eliminar Relacion</button>
+                  <button type="submit" class="btn btn-sm btn-outline-danger">Agregar Relacion</button>
               </form>
           </td>
         </tr>

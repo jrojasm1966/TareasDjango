@@ -91,6 +91,30 @@ def deleteLibro(request):
     Book.objects.get(id = request.POST['id']).delete()
     return redirect('/librosPublicadoresMant')
 
+
+def agregaRelacionLibroEditor(request):
+    getBook = Book.objects.get(id=request.POST['id'])
+    publicadores = Publisher.objects.all()
+
+    context = {
+        "getBook": getBook,
+        'lista_publicadores': publicadores,
+    }
+    return render(request, 'polls/AgregaRelacionBookPub.html', context)
+
+
+def agregaRelacion(request):
+    this_book = Book.objects.get(id = request.POST['id'])	# recupera una instancia de un libro
+    this_publisher = Publisher.objects.get(id = request.POST['idPub'])	# recuperar una instancia de un editor
+        
+    # 2 opciones que hacen lo mismo
+    this_publisher.books.add(this_book)		# añadir el libro a la lista de libros de esta editorial
+    # O
+    #this_book.publishers.add(this_publisher)	# agregar el editor a la lista de editores de este libro
+
+    return redirect('/librosPublicadoresMant')
+
+
 def deleteRelacionLibroEditor(request):
     getBook = Book.objects.get(id=request.POST['id'])
     context = {
@@ -100,7 +124,7 @@ def deleteRelacionLibroEditor(request):
 
 
 def deleteRelacion(request):
-    this_book = Book.objects.get(id = request.POST['idLibro'])	# recupera una instancia de un libro
+    this_book = Book.objects.get(id = request.POST['id'])	# recupera una instancia de un libro
     this_publisher = Publisher.objects.get(id = request.POST['idPub'])	# recuperar una instancia de un editor
         
     # 2 opciones que hacen lo mismo
@@ -108,4 +132,4 @@ def deleteRelacion(request):
     # O
     #this_book.publishers.remove(this_publisher)	# eliminar al editor de la lista de editores de este libro
 
-    return redirect('/deleteRelacionLibroEditor')
+    return redirect('/librosPublicadoresMant')

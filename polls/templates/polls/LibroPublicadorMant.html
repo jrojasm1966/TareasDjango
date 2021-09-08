@@ -57,6 +57,7 @@ Agregar separadores libros asociados a Publicador
         <tr>
           <th scope="col">ID #</th>
           <th scope="col">Título</th>
+          <th scope="col">Sus Publicadoress</th>
           <th scope="col">Fecha Creación</th>
           <th scope="col">Acción</th>
           <th scope="col"></th>
@@ -68,6 +69,14 @@ Agregar separadores libros asociados a Publicador
           <!-- <th scope="row">1</th> -->
           <td>{{libro.id}}</td>
           <td>{{libro.title}}</td>
+          <td> 
+{% comment %} 
+Agregar separadores libros asociados a Publicador
+{% endcomment %}            
+            {% for publicador in libro.publishers.all %} 
+                {{ publicador.name }} 
+            {% endfor%}
+          </td>
           <td>{{libro.created_at}}</td>
           <td>
               <form action="getLibro" method="POST">
@@ -79,6 +88,11 @@ Agregar separadores libros asociados a Publicador
                   {% csrf_token %}
                   <input type="hidden" name="id" value="{{libro.id}}">
                   <button type="submit" class="btn btn-sm btn-outline-danger">Eliminar Libro</button>
+              </form>
+              <form action="agregaRelacionLibroEditor" method="POST">
+                  {% csrf_token %}
+                  <input type="hidden" name="id" value="{{libro.id}}">
+                  <button type="submit" class="btn btn-sm btn-outline-danger">Agregar Relacion Publicador</button>
               </form>
               <form action="deleteRelacionLibroEditor" method="POST">
                   {% csrf_token %}
