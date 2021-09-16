@@ -11,9 +11,12 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+#BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+from pathlib import Path
+# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 
 
 # Quick-start development settings - unsuitable for production
@@ -35,6 +38,8 @@ INSTALLED_APPS = [
     ## pip install -U django-jazzmin
     ## Add jazzmin a 'INSTALED_APPS' in settings
     'jazzmin',
+    "login",
+    "polls",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -43,7 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # apps
-    'polls.apps.PollsConfig',
+    #'polls.apps.PollsConfig',
 ]
 
 MIDDLEWARE = [
@@ -83,6 +88,15 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 DATABASES = {
     'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3'
+    }
+}
+
+
+"""
+DATABASES = {
+    'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'lead_gen_business',
         'USER': 'root',
@@ -92,7 +106,7 @@ DATABASES = {
     }
 }
 
-
+"""
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators

@@ -7,9 +7,9 @@ class Client(models.Model):
     email = models.CharField(max_length=50)
     joined_datetime = models.DateTimeField()
 
-    class Meta:
-        managed = False
-        db_table = 'clients'
+#    class Meta:
+#        managed = False
+#        db_table = 'clients'
 
 
 class Site(models.Model):
@@ -18,9 +18,9 @@ class Site(models.Model):
     created_datetime = models.DateTimeField()
     client=models.ForeignKey(Client, related_name="sites",on_delete=models.CASCADE)#client_id = models.IntegerField()
 
-    class Meta:
-        managed = False
-        db_table = 'sites'
+#    class Meta:
+#        managed = False
+#        db_table = 'sites'
 
 
 class Lead(models.Model):
@@ -31,9 +31,9 @@ class Lead(models.Model):
     email = models.CharField(max_length=50)
     site=models.ForeignKey(Site, related_name="leads", on_delete=models.CASCADE)#site_id = models.IntegerField()
 
-    class Meta:
-        managed = False
-        db_table = 'leads'
+#    class Meta:
+#        managed = False
+#        db_table = 'leads'
 
 
 class Documento(models.Model):
@@ -42,9 +42,9 @@ class Documento(models.Model):
     charged_datetime = models.DateTimeField()
     client=models.ForeignKey(Client, related_name="billing",on_delete=models.CASCADE)#client_id = models.IntegerField()
 
-    class Meta:
-        managed = False
-        db_table = 'billing'
+#    class Meta:
+#        managed = False
+#        db_table = 'billing'
         
 
 class Book(models.Model):

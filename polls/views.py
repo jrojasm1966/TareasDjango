@@ -12,6 +12,8 @@ from .models import *
 def home(request):
     return render(request, 'polls/home.html')
 
+def polls(request):
+    return render(request, 'polls/home.html')
 
 def clientes(request):
     clientes = Client.objects.all()
