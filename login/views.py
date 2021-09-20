@@ -9,8 +9,17 @@ from .models import User
 def login(request):
     return render(request, 'registro.html')
 
-def registrar(request):
-    return render(request, 'registro.html')
+#def registrar(request):
+#    return render(request, 'registro.html')
+
+def menu(request):
+    active_user = User.objects.get(id=request.session['user_id'])
+
+    context = {
+        "active_user": active_user,
+    }
+    return render(request, 'menuGeneral.html', context)
+    #return render(request, 'menuGeneral.html')
 
 def inicio(request):
     usuario = User.objects.filter(email=request.POST['email2'])
@@ -22,7 +31,7 @@ def inicio(request):
         return redirect('/')
     else:
         request.session['user_id'] = usuario[0].id
-        return redirect('polls')
+        return redirect('menu')
 
 def registro(request):
     #validacion de parametros
@@ -31,7 +40,7 @@ def registro(request):
     if len(errors) > 0:
         for key, msg in errors.items():
             messages.error(request, msg)
-        return redirect('/registrar')
+        return redirect('/registro')
 
     else:
         #encriptar password

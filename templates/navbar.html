@@ -6,26 +6,26 @@
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="/" class="nav-link">Home</a>
+            <a href="menuGeneral" class="nav-link">Menú Principal</a>
         </li>
-        <li class="nav-item d-none d-sm-inline-block">
-            <a href="clientes"  class="nav-link">Clientes</a>
-        </li>
-        <li class="nav-item d-none d-sm-inline-block">
-            <a href="sitios"  class="nav-link">Sitios</a>
-        </li>
-        <li class="nav-item d-none d-sm-inline-block">
-            <a href="leads"  class="nav-link">Leads</a>
-        </li>
-        <li class="nav-item d-none d-sm-inline-block">
-            <a href="docs"  class="nav-link">Documentos</a>
-        </li>
-        <li class="nav-item d-none d-sm-inline-block">
-            <a href="librosPublicadores"  class="nav-link">Libros/Publicadores</a>
-        </li>
-        <li class="nav-item d-none d-sm-inline-block">
-            <a href="librosPublicadoresMant"  class="nav-link">Libros/Publicadores Mantencion</a>
-        </li>
+
+        {% if paginaActual == "polls" %}
+          <!--<li class="nav-item d-none d-sm-inline-block">
+              <a href="admclientes"  class="nav-link">Clientes</a>
+          </li>
+          <li class="nav-item d-none d-sm-inline-block">
+              <a href="admsitios"  class="nav-link">Sitios</a>
+          </li>
+          <li class="nav-item d-none d-sm-inline-block">
+              <a href="admleads"  class="nav-link">Leads</a>
+          </li>
+          <li class="nav-item d-none d-sm-inline-block">
+              <a href="admdocs"  class="nav-link">Documentos</a>
+          </li>-->
+          <li class="nav-item d-none d-sm-inline-block">
+              <a href="admlibrosPublicadores"  class="nav-link">CRUD Publicadores/Libros y Relaciones</a>
+          </li>
+        {% endif %}
     </ul>
 
     <!-- SEARCH FORM -->

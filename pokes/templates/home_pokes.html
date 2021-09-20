@@ -1,0 +1,54 @@
+{% extends 'main_content.html' %}
+{% block  content %}
+        <div class="header">
+            <h5>Bienvenido, {{active_user.nombre}} !!!</h5>
+            <br>
+            <h5>Total de Pokes hacia Tí: {{cantTotalPokes}} !!!</h5>
+            <br>
+            {% if numPokes.numPokesReceptor == 0 %}
+                <h5>Aún no te han Pokeado !!! - A ESPERAR !!!</h5>
+            {% else %}
+                <h5>Mira !! - Hay {{numPokes.numPokesReceptor}} Persona(s) que te ha(n) Pokeado !!! - Mira el detalle:</h5>
+            {% endif %}
+            <div class="content">
+                <ul> 
+                {% for usuario in poke_user %}
+                    <li> {{usuario.nombre}} - Alias {{usuario.alias}} te Pokeó {{usuario.cantpokes}} veces</li>
+                {% endfor %}
+                </ul>
+                <tr>
+                <br>
+                <h5>Personas a las que puedes Pokear: <h5>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Alias</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Historial de Pokes</th>
+                            <th scope="col">Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for usuario in lista_usuarios %}
+                        <tr>
+                            <td>{{usuario.id}}</td>
+                            <td>{{usuario.nombre}}</td>
+                            <td>{{usuario.alias}}</td>
+                            <td>{{usuario.email}}</td>
+                            <td>{{usuario.cantpokes}} Pokes</td>
+                            <td>
+                                <form action="addpoke" method="POST">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="id" value="{{usuario.id}}">
+                                    <input type="submit" name="poke" value="Poke!">
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor%}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+{% endblock %}

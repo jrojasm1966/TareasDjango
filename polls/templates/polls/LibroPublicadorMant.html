@@ -2,6 +2,26 @@
 
 {% block content %}
     <h1>Listado de Publicadores</h1>
+
+    <p>
+      <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#nuevoLibro" aria-expanded="false" aria-controls="nuevoLibro">
+                Nuevo Publicador ( Ingresar/No Ingresar ) 
+      </button>
+    </p>
+
+        <div class="collapse" id="nuevoLibro">
+            <form class="text-center my-5" method="POST" action="admcreatePub">
+            {% csrf_token %}
+                <div class="mb-3">
+                    <label for="namePub" class="form-label">Nuevo Publicador: </label>
+                    <input type="text" size = 50 align = "center" id="namePub" name="namePub" placeholder="Ingrese Nombre del Publicador">
+                </div>
+                <div class="mb-3">
+                    <input type="submit" class="btn btn-success" value="Enviar datos">
+                </div>
+            </form>
+        </div>
+
     <table class="table" id="data">
       <thead>
         <tr>
@@ -9,6 +29,7 @@
           <th scope="col">Nombre</th>
           <th scope="col">Sus Libros</th>
           <th scope="col">Fecha Creación</th>
+          <th scope="col">Acción</th>
         </tr>
       </thead>
       <tbody>
@@ -18,14 +39,23 @@
           <td>{{publicador.id}}</td>
           <td>{{publicador.name}}</td>
           <td> 
-{% comment %} 
-Agregar separadores libros asociados a Publicador
-{% endcomment %}            
             {% for book in publicador.books.all %} 
-                {{ book.title }} 
+                / {{ book.title }}
             {% endfor%}
           </td>
           <td>{{publicador.created_at}}</td>
+          <td>
+              <form action="admgetPub" method="POST">
+                  {% csrf_token %}
+                  <input type="hidden" name="id" value="{{publicador.id}}">
+                  <button type="submit" class="btn btn-sm btn-outline-warning">Editar Publicador</button>
+              </form>
+              <form action="admdeletePub" method="POST">
+                  {% csrf_token %}
+                  <input type="hidden" name="id" value="{{publicador.id}}">
+                  <button type="submit" class="btn btn-sm btn-outline-danger">Eliminar Publicador</button>
+              </form>
+          </td>
         </tr>
         {% endfor %}
       </tbody>
@@ -40,11 +70,11 @@ Agregar separadores libros asociados a Publicador
     </p>
 
         <div class="collapse" id="nuevoLibro">
-            <form class="text-center my-5" method="POST" action="createLibro">
+            <form class="text-center my-5" method="POST" action="admcreateLibro">
             {% csrf_token %}
                 <div class="mb-3">
-                    <label for="librotitulo" class="form-label">Libro:</label>
-                    <input type="text" class="form-control" id="librotitulo" name="librotitulo" placeholder="Ingrese Título del Libro">
+                    <label for="librotitulo" class="form-label">Nuevo Libro: </label>
+                    <input type="text" size = 50 align = "center" id="librotitulo" name="librotitulo" placeholder="Ingrese Título del Libro">
                 </div>
                 <div class="mb-3">
                     <input type="submit" class="btn btn-success" value="Enviar datos">
@@ -57,7 +87,7 @@ Agregar separadores libros asociados a Publicador
         <tr>
           <th scope="col">ID #</th>
           <th scope="col">Título</th>
-          <th scope="col">Sus Publicadoress</th>
+          <th scope="col">Sus Publicadores</th>
           <th scope="col">Fecha Creación</th>
           <th scope="col">Acción</th>
           <th scope="col"></th>
@@ -70,31 +100,28 @@ Agregar separadores libros asociados a Publicador
           <td>{{libro.id}}</td>
           <td>{{libro.title}}</td>
           <td> 
-{% comment %} 
-Agregar separadores libros asociados a Publicador
-{% endcomment %}            
             {% for publicador in libro.publishers.all %} 
-                {{ publicador.name }} 
+                / {{ publicador.name }} 
             {% endfor%}
           </td>
           <td>{{libro.created_at}}</td>
           <td>
-              <form action="getLibro" method="POST">
+              <form action="admgetLibro" method="POST">
                   {% csrf_token %}
                   <input type="hidden" name="id" value="{{libro.id}}">
                   <button type="submit" class="btn btn-sm btn-outline-warning">Editar Libro</button>
               </form>
-              <form action="deleteLibro" method="POST">
+              <form action="admdeleteLibro" method="POST">
                   {% csrf_token %}
                   <input type="hidden" name="id" value="{{libro.id}}">
                   <button type="submit" class="btn btn-sm btn-outline-danger">Eliminar Libro</button>
               </form>
-              <form action="agregaRelacionLibroEditor" method="POST">
+              <form action="admagregaRelacionLibroEditor" method="POST">
                   {% csrf_token %}
                   <input type="hidden" name="id" value="{{libro.id}}">
                   <button type="submit" class="btn btn-sm btn-outline-danger">Agregar Relacion Publicador</button>
               </form>
-              <form action="deleteRelacionLibroEditor" method="POST">
+              <form action="admdeleteRelacionLibroEditor" method="POST">
                   {% csrf_token %}
                   <input type="hidden" name="id" value="{{libro.id}}">
                   <button type="submit" class="btn btn-sm btn-outline-danger">Eliminar Relacion Publicador</button>
@@ -104,6 +131,5 @@ Agregar separadores libros asociados a Publicador
         {% endfor %}
       </tbody>
     </table>
-
 </div>
 {% endblock %}

@@ -1,0 +1,34 @@
+
+{% extends 'base.html' %}
+{% block body %}
+<body class="hold-transition sidebar-mini">
+    <div class="wrapper">
+    
+    <!-- Navbar -->
+    {% include 'navbar.html' %}
+    
+    <!-- Main Sidebar Container -->
+    {% include 'sidebar.html' %}
+    
+    <!-- Main content -->
+    <div class="content-wrapper">
+        <!-- Content Wrapper. Contains page content -->
+        {% include 'content_wrapper.html' %}
+
+        <div class="container">
+        {% block main-content %}
+            <h1>Sitio con Proyectos/Tareas construídas con Django</h1>
+            <br>
+            <h2>Accede a cada uno de ellos en el menú de la izquierda...</h2>
+        {% endblock %}
+        </div>
+    </div>
+    
+    <!-- Main Footer -->
+    {% include 'footer.html' %}
+    
+    </div>
+    <!-- ./wrapper -->
+    
+</body>
+{% endblock %}

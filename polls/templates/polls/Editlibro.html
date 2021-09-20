@@ -1,0 +1,19 @@
+{% extends 'main_content.html' %}
+
+{% block content %}
+    <div class="container">
+        <h1 align="center">Libro</h1>
+        <form class="text-center my-5" method="POST" action="admupdateLibro">
+        {% csrf_token %}
+            <input type="hidden" name="id" value="{{getBook.id}}">
+            <div class="mb-3">
+                <label for="titulo" class="form-label">Titulo: </label>
+                <input type="text" size = 50 align = "center" id="titulo" value="{{ getBook.title }}" name="titulo" placeholder="Ingrese Título">
+            </div>
+            <div class="mb-3">
+                <a class="btn btn-primary" href="/admlibrosPublicadores" role="button">Volver</a>
+                <input type="submit" class="btn btn-success" value="Actualizar datos">
+            </div>
+        </form>
+    </div>
+{% endblock %}

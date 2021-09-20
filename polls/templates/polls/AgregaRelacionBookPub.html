@@ -1,20 +1,24 @@
 {% extends 'main_content.html' %}
 
 {% block content %}
-    <h1>Libro Elegido:</h1>
     <div class="container">
-        <form class="text-center my-5" method="POST" action="updateLibro">
+      <h1>Titulo Libro Elegido: {{ getBook.title }}</h1>
+      <a class="btn btn-primary" href="/admlibrosPublicadores" role="button">Volver Publicadores/Libros</a>
+    </div>
+    <br>
+    <div class="container">
+        <!--<form class="text-center my-5" method="POST" action="admupdateLibro">
         {% csrf_token %}
             <input type="hidden" name="id" value="{{getBook.id}}">
             <div class="mb-3">
-                <label for="titulo" class="form-label">Titulo:</label>
+                <label for="titulo" class="form-label">Titulo: {{ getBook.title }}</label>
                 <input type="text" class="form-control" id="titulo" value="{{ getBook.title }}" name="titulo" placeholder="Ingrese Título">
             </div>
             <div class="mb-3">
-                <a class="btn btn-primary" href="/librosPublicadoresMant" role="button">Volver</a>
+                <a class="btn btn-primary" href="/admlibrosPublicadores" role="button">Volver</a>
                 <input type="submit" class="btn btn-success" value="Actualizar datos">
             </div>
-        </form>
+        </form>-->
 
     <h1>Publicadores Disponibles</h1>
     <table class="table" id="data">
@@ -23,6 +27,7 @@
           <th scope="col">ID #</th>
           <th scope="col">Nombre</th>
           <th scope="col">Fecha Creación</th>
+          <th scope="col">Acción</th>
         </tr>
       </thead>
       <tbody>
@@ -33,7 +38,7 @@
           <td>{{publicador.name}}</td>
           <td>{{publicador.created_at}}</td>
           <td>
-              <form action="agregaRelacion" method="POST">
+              <form action="admagregaRelacion" method="POST">
                   {% csrf_token %}
                   <input type="hidden" name="id" value="{{getBook.id}}">
                   <input type="hidden" name="idPub" value="{{publicador.id}}">
