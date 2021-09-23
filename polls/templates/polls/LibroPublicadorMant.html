@@ -4,12 +4,12 @@
     <h1>Listado de Publicadores</h1>
 
     <p>
-      <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#nuevoLibro" aria-expanded="false" aria-controls="nuevoLibro">
+      <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#nuevoPub" aria-expanded="false" aria-controls="nuevoPub">
                 Nuevo Publicador ( Ingresar/No Ingresar ) 
       </button>
     </p>
 
-        <div class="collapse" id="nuevoLibro">
+        <div class="collapse" id="nuevoPub">
             <form class="text-center my-5" method="POST" action="admcreatePub">
             {% csrf_token %}
                 <div class="mb-3">

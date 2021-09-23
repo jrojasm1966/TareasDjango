@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "login",
     "polls",
     "pokes",
+    "DojosNinjas",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

@@ -21,4 +21,5 @@ urlpatterns = [
     path('', include('login.urls')),
     path('', include('polls.urls')),
     path('', include('pokes.urls')),
+    path('', include('DojosNinjas.urls')),
 ]

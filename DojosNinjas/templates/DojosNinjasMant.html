@@ -1,0 +1,162 @@
+{% extends 'main_content.html' %}
+
+{% block content %}
+    <h5>Bienvenido, {{active_user.nombre}} !!!</h5>
+    <br>
+
+    <h1>Listado de Dojos</h1>
+
+    <p>
+      <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#nuevoDojo" aria-expanded="false" aria-controls="nuevoDojo">
+                Nuevo Dojo ( Ingresar/No Ingresar ) 
+      </button>
+    </p>
+
+        <div class="collapse" id="nuevoDojo">
+            <form class="text-center my-5" method="POST" action="admcreateDojos">
+            {% csrf_token %}
+                <div class="mb-3">
+                    <label for="nameDojo" class="form-label">Nuevo Dojo: </label>
+                    <input type="text" size = 50 align = "center" id="nameDojo" name="nameDojo" placeholder="Ingrese Nombre del Dojo">
+                </div>
+                <div class="mb-3">
+                    <label for="ciudadDojo" class="form-label">Ciudad: </label>
+                    <input type="text" size = 50 align = "center" id="ciudadDojo" name="ciudadDojo" placeholder="Ingrese Ciudad del Dojo">
+                </div>
+                <div class="mb-3">
+                    <label for="estadoDojo" class="form-label">Estado:</label>
+                    <div class="mb-3 form-check">
+                        <input class="form-check-input" type="radio" id="estadoDojo" value="AC" name="estadoDojo">
+                        <label class="form-check-label" for="exampleRadios1">AC: Activo</label>
+                    </div>
+                    <div class="mb-3 form-check">
+                        <input class="form-check-input" type="radio" id="estadoDojo" value="IN" name="estadoDojo">
+                        <label class="form-check-label" for="exampleRadios2">IN: Inactivo</label>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <input type="submit" class="btn btn-success" value="Enviar datos">
+                </div>
+            </form>
+        </div>
+
+    <table class="table" id="data">
+      <thead>
+        <tr>
+          <th scope="col">ID #</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Ciudad</th>
+          <th scope="col">Sus Ninjas</th>
+          <th scope="col">Fecha Creación</th>
+          <th scope="col">Acción</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for dojo in lista_dojos %}
+        <tr>
+          <td>{{dojo.id}}</td>
+          <td>{{dojo.nombre}}</td>
+          <td>{{dojo.ciudad}}</td>
+          <td> 
+            {% for ninja in lista_ninjas %} 
+                {% if dojo == ninja.dojo_id %} 
+                    / {{ ninja.nombre }} {{ ninja.apellido }}
+                {% endif %} 
+            {% endfor%}
+          </td>
+          <td>{{dojo.created_at}}</td>
+          <td>
+              <form action="admgetDojos" method="POST">
+                  {% csrf_token %}
+                  <input type="hidden" name="id" value="{{dojo.id}}">
+                  <button type="submit" class="btn btn-sm btn-outline-warning">Editar Dojo</button>
+              </form>
+              <form action="admdeleteDojos" method="POST">
+                  {% csrf_token %}
+                  <input type="hidden" name="id" value="{{dojo.id}}">
+                  <button type="submit" class="btn btn-sm btn-outline-danger">Eliminar Dojo</button>
+              </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+<h1>Listado de Ninjas</h1>
+<div class="container">
+    <p>
+      <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#nuevoNinja" aria-expanded="false" aria-controls="nuevoNinja">
+                Nuevo Ninja ( Ingresar/No Ingresar ) 
+      </button>
+    </p>
+
+        <div class="collapse" id="nuevoNinja">
+            <form class="text-center my-5" method="POST" action="admcreateNinjas">
+            {% csrf_token %}
+                <div class="mb-3">
+                    <label for="nameNinja" class="form-label">Nombre Ninja: </label>
+                    <input type="text" size = 50 align = "center" id="nameNinja" name="nameNinja" placeholder="Ingrese Nombre">
+                </div>
+                <div class="mb-3">
+                    <label for="apeNinja" class="form-label">Apellido Ninja: </label>
+                    <input type="text" size = 50 align = "center" id="apeNinja" name="apeNinja" placeholder="Ingrese Apellido">
+                </div>
+                <div class="mb-3">
+                    <label for="" class="form-label">Dojos a Elegir : </label>
+                    <select name="eligeDojo" id="eligeDojo">
+                        <option> Seleccione </option>
+                        {% for dojo in lista_dojos %}
+                            <option value="{{dojo.id}}"> {{dojo.nombre}} </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <input type="submit" class="btn btn-success" value="Enviar datos">
+                </div>
+            </form>
+        </div>
+
+    <table class="table" id="data">
+      <thead>
+        <tr>
+          <th scope="col">ID #</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Apellido</th>
+          <th scope="col">Su Dojo</th>
+          <th scope="col">Fecha Creación</th>
+          <th scope="col">Acción</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for ninja in lista_ninjas %}
+        <tr>
+          <td>{{ninja.id}}</td>
+          <td>{{ninja.nombre}}</td>
+          <td>{{ninja.apellido}}</td>
+          <td>{{ninja.dojo_id.nombre}}</td>
+          <td>{{ninja.created_at}}</td>
+          <td>
+              <form action="admgetNinjas" method="POST">
+                  {% csrf_token %}
+                  <input type="hidden" name="id" value="{{ninja.id}}">
+                  <button type="submit" class="btn btn-sm btn-outline-warning">Editar Ninja</button>
+              </form>
+              <form action="admdeleteNinjas" method="POST">
+                  {% csrf_token %}
+                  <input type="hidden" name="id" value="{{ninja.id}}">
+                  <button type="submit" class="btn btn-sm btn-outline-danger">Eliminar Ninja</button>
+              </form>
+              <form action="admcambiarRelacionDojosNinjas" method="POST">
+                  {% csrf_token %}
+                  <input type="hidden" name="id" value="{{ninja.id}}">
+                  <button type="submit" class="btn btn-sm btn-outline-danger">Cambiar Relacion Dojo</button>
+              </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+</div>
+{% endblock %}
