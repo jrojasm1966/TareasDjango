@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     ## Add jazzmin a 'INSTALED_APPS' in settings
     'jazzmin',
     "login",
+    "SQLaORM",
     "polls",
     "pokes",
     "DojosNinjas",

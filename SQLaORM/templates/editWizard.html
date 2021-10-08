@@ -1,0 +1,35 @@
+{% extends 'main_content.html' %}
+
+{% block content %}
+    <h5>Bienvenido, {{active_user.nombre}} !!!</h5>
+    <br>
+    <div class="container">
+        <h1 align="center">Actualizar Wizard</h1>
+        <form class="text-center my-5" method="POST" action="admupdateWizard">
+        {% csrf_token %}
+            <input type="hidden" name="id" value="{{getWizard.id}}">
+                <div class="mb-3">
+                    <label for="nameWizard" class="form-label">Nuevo Wizard: </label>
+                    <input type="text" size = 50 align = "center" id="nameWizard" name="nameWizard" value="{{getWizard.name}}" placeholder="Ingrese Nombre del Wizard">
+                </div>
+                <div class="mb-3">
+                    <label for="casaWizard" class="form-label">Casa: </label>
+                    <input type="text" size = 50 align = "center" id="casaWizard" name="casaWizard" value="{{getWizard.house}}" placeholder="Ingrese Casa del Wizard">
+                </div>
+                <div class="mb-3">
+                    <label for="mascotaWizard" class="form-label">Mascota: </label>
+                    <input type="text" size = 50 align = "center" id="mascotaWizard" name="mascotaWizard" value="{{getWizard.pet}}" placeholder="Ingrese mascota del Wizard">
+                </div>
+                <div class="mb-3">
+                    <label for="yearWizard" class="form-label">Años: </label>
+                    <input type="text" size = 15 align = "center" id="yearWizard" name="yearWizard" value="{{getWizard.year}}" placeholder="Ingrese Años Mascota">
+                </div>
+
+            <div class="mb-3">
+                <a class="btn btn-primary" href="/admSQLORM" role="button">Volver</a>
+                <input type="submit" class="btn btn-success" value="Actualizar datos">
+            </div>
+        </form>
+    </div>
+
+{% endblock %}

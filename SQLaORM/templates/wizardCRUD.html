@@ -1,0 +1,76 @@
+{% extends 'main_content.html' %}
+
+{% block content %}
+    <h5>Bienvenido, {{active_user.nombre}} !!!</h5>
+    <br>
+
+    <h1>Listado de Wizard</h1>
+
+    <p>
+      <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#nuevoWizard" aria-expanded="false" aria-controls="nuevoWizard">
+                Nuevo Wizard ( Ingresar/No Ingresar ) 
+      </button>
+    </p>
+
+        <div class="collapse" id="nuevoWizard">
+            <form class="text-center my-5" method="POST" action="admcreateWizard">
+            {% csrf_token %}
+                <div class="mb-3">
+                    <label for="nameWizard" class="form-label">Nuevo Wizard: </label>
+                    <input type="text" size = 50 align = "center" id="nameWizard" name="nameWizard" placeholder="Ingrese Nombre del Wizard">
+                </div>
+                <div class="mb-3">
+                    <label for="casaWizard" class="form-label">Casa: </label>
+                    <input type="text" size = 50 align = "center" id="casaWizard" name="casaWizard" placeholder="Ingrese Casa del Wizard">
+                </div>
+                <div class="mb-3">
+                    <label for="mascotaWizard" class="form-label">Mascota: </label>
+                    <input type="text" size = 50 align = "center" id="mascotaWizard" name="mascotaWizard" placeholder="Ingrese mascota del Wizard">
+                </div>
+                <div class="mb-3">
+                    <label for="yearWizard" class="form-label">Años: </label>
+                    <input type="text" size = 15 align = "center" id="yearWizard" name="yearWizard" placeholder="Ingrese Años Mascota">
+                </div>
+                <div class="mb-3">
+                    <input type="submit" class="btn btn-success" value="Enviar datos">
+                </div>
+            </form>
+        </div>
+
+    <table class="table" id="data">
+      <thead>
+        <tr>
+          <th scope="col">ID #</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Casa</th>
+          <th scope="col">Mascota</th>
+          <th scope="col">Años</th>
+          <th scope="col">Acción</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for Wizard in lista_wizards %}
+        <tr>
+          <td>{{Wizard.id}}</td>
+          <td>{{Wizard.name}}</td>
+          <td>{{Wizard.house}}</td>
+          <td>{{Wizard.pet}}</td>
+          <td>{{Wizard.year}}</td>
+          <td>
+              <form action="admgetWizard" method="POST">
+                  {% csrf_token %}
+                  <input type="hidden" name="id" value="{{Wizard.id}}">
+                  <button type="submit" class="btn btn-sm btn-outline-warning">Editar Wizard</button>
+              </form>
+              <form action="admdeleteWizard" method="POST">
+                  {% csrf_token %}
+                  <input type="hidden" name="id" value="{{Wizard.id}}">
+                  <button type="submit" class="btn btn-sm btn-outline-danger">Eliminar Wizard</button>
+              </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+{% endblock %}
