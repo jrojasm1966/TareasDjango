@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'jazzmin',
     "login",
     "SQLaORM",
+    "users_app",
     "polls",
     "pokes",
     "DojosNinjas",

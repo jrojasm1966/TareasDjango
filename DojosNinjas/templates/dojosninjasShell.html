@@ -1,0 +1,85 @@
+{% extends 'main_content.html' %}
+
+{% block content %}
+    <h5>Bienvenido, {{active_user.nombre}} !!!</h5>
+    <br>
+
+    <div class="container">
+        <h1>Tarea - Shell Tablas Dojos y Ninjas</h1>
+
+        <h4>1. Crea el modelo de clase Dojo. Hecho</h4>
+        <h4>2. Crea el modelo de clase Ninja. Hecho</h4>
+        <h4>3. Crea y ejecuta los archivos de migración para crear las tablas en su base de datos. Hecho</h4>
+        <h4>4. Crea un archivo .txt donde guardará cada una de sus consultas desde abajo. Hecho</h4>
+
+        <h4>5. Ejecuta el shell e importe sus modelos. Hecho</h4>
+        <h5>python manage.py shell</h5>
+
+        <h5>>>> from DojosNinjas.models import Dojo, Ninja</h5>
+
+        <h4>6. Consulta: Crea 3 nuevos dojos. OK</h4>
+
+        <h5>>>> Dojo.objects.create(nombre="Rodrigo", ciudad="Santiago", estado="AC")</h5>
+        <h5>>>> Dojo.objects.create(nombre="Manuel", ciudad="Rancagua", estado="AC")</h5>
+        <h5>>>> Dojo.objects.create(nombre="Pedro", ciudad="Arica", estado="AC")</h5>
+        
+        <h4>7. Consulta: elimina los 3 dojos que acaba de crear. OK</h4>
+
+        <h5>>>> Dojo.objects.get(nombre="Rodrigo").delete()</h5>
+        <h5>>>> Dojo.objects.get(nombre="Manuel").delete()</h5>
+        <h5>>>> Dojo.objects.get(nombre="Pedro").delete()</h5>
+
+        <h4>8. Consulta: Crea 3 dojos más. OK</h4>
+
+        <h5>>>> Dojo.objects.create(nombre="Rodrigo2", ciudad="Santiago", estado="AC")</h5>
+        <h5>>>> Dojo.objects.create(nombre="Manuel2", ciudad="Rancagua", estado="AC")</h5>
+        <h5>>>> Dojo.objects.create(nombre="Pedro2", ciudad="Arica", estado="AC")</h5>
+
+        <h4>9. Consulta: crea 3 ninjas que pertenecen al primer dojo. OK</h4>
+
+        <h5>>>> Ninja.objects.create(dojo_id=Dojo.objects.get(nombre="Rodrigo2"), nombre="Ninja1", apellido="de Dojo1")</h5>
+        <h5>>>> Ninja.objects.create(dojo_id=Dojo.objects.get(nombre="Rodrigo2"), nombre="Ninja2", apellido="de Dojo1")</h5>
+        <h5>>>> Ninja.objects.create(dojo_id=Dojo.objects.get(nombre="Rodrigo2"), nombre="Ninja3", apellido="de Dojo1")</h5>
+
+        <h4>10. Consulta: crea 3 ninjas que pertenecen al segundo dojo. Ok</h4>
+
+        <h5>>>> Ninja.objects.create(dojo_id=Dojo.objects.get(nombre="Manuel2"), nombre="Ninja4", apellido="de Dojo2")</h5>
+        <h5>>>> Ninja.objects.create(dojo_id=Dojo.objects.get(nombre="Manuel2"), nombre="Ninja5", apellido="de Dojo2")</h5>
+        <h5>>>> Ninja.objects.create(dojo_id=Dojo.objects.get(nombre="Manuel2"), nombre="Ninja6", apellido="de Dojo2")</h5>
+
+
+        <h4>11. Consulta: crea 3 ninjas que pertenecen al tercer dojo. Ok</h4>
+
+        <h5>>>> Ninja.objects.create(dojo_id=Dojo.objects.get(nombre="Pedro2"), nombre="Ninja7", apellido="de Dojo3")</h5>
+        <h5>>>> Ninja.objects.create(dojo_id=Dojo.objects.get(nombre="Pedro2"), nombre="Ninja8", apellido="de Dojo3")</h5>
+        <h5>>>> Ninja.objects.create(dojo_id=Dojo.objects.get(nombre="Pedro2"), nombre="Ninja9", apellido="de Dojo3")</h5>
+
+
+        <h4>12. Consulta: recupera todos los ninjas del primer dojo. Ok</h4>
+
+        <h5>>>> ninjasDojo1 = Ninja.objects.filter(dojo_id=Dojo.objects.get(nombre="Rodrigo2"))</h5>
+        <h5>>>> for m in ninjasDojo1:    </h5>
+        <h5>    print(m.nombre,  m.apellido, " Dojo1 es: ", m.dojo_id.nombre)	</h5>
+
+
+        <h4>13. Consulta: recupera todos los ninjas del último dojo. Ok</h4>
+
+        <h5>>>> ninjasDojoLast = Ninja.objects.filter(dojo_id=Dojo.objects.last())</h5>
+        <h5>>>> for m in ninjasDojoLast:    </h5>
+        <h5>    print(m.nombre,  m.apellido, " Dojo Last es: ", m.dojo_id.nombre)	</h5>
+
+
+        <h4>14. Consulta: recupera el último dojo del ninja. Ok</h4>
+
+        <h5>>>> m = Ninja.objects.last()</h5>
+        <h5>>>> print("Ninja es : ", m.nombre,  m.apellido, " Su Dojo es: ", m.dojo_id.nombre)	</h5>
+
+        <h4>15. Agrega un nuevo campo de texto llamado "desc" a su clase de Dojo. Hecho</h4>
+        <h4>16. Crea y ejecuta los archivos de migración para actualizar la tabla en su base de datos. Si es necesario, proporcione un valor predeterminado de "dojo antiguo". Hecho</h4>
+
+        <h4>17. Consulta: crear un nuevo dojo. Ok</h4>
+
+        <h5>>>> Dojo.objects.create(nombre="NuevoDojo Sam", ciudad="Valpo", estado="AC", desc = "Dojo Nuevo")</h5>
+    </div>
+
+{% endblock %}

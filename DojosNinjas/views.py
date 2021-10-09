@@ -6,6 +6,16 @@ from .models import *
 from login.models import User
 
 # Métodos de Control para Mantención de Dojos y Ninjas
+def shellDojosNinjas(request):
+    paginaActual = "shellDojosNinjas"
+    active_user = User.objects.get(id=request.session['user_id'])
+
+    context = {
+        'paginaActual': paginaActual,
+        "active_user": active_user,
+    }
+    return render(request, 'dojosninjasShell.html', context)
+
 def DojosNinjas(request):
     paginaActual = "DojosNinjas"
     active_user = User.objects.get(id=request.session['user_id'])

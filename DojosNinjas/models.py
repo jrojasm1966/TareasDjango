@@ -10,6 +10,7 @@ class Dojo(models.Model):
     estado = models.CharField(max_length=2)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    desc = models.CharField(max_length=40, default="dojo antiguo")
 
 class Ninja(models.Model):
     id = models.AutoField(primary_key=True)

@@ -1,0 +1,69 @@
+{% extends 'main_content.html' %}
+
+{% block content %}
+    <h5>Bienvenido, {{active_user.nombre}} !!!</h5>
+    <br>
+
+    <div class="container">
+        <h1>Tarea - Shell Tabla Usuarios</h1>
+
+        <h4>1. Crea un modelo llamado Usuario siguiendo el ERD anterior OK</h4>
+        <h4>2. Crea y ejecuta los archivos de migración para crear la tabla Usuario en su base de datos. OK</h4>
+        <h4>3. Crea un archivo .txt donde guardará cada una de las consultas que ejecutará en el shell. OK</h4>
+
+        <h4>4. Ejecuta el shell e importe su modelo de usuario. OK</h4>
+        <h5>python manage.py shell</h5>
+
+        <h5>>>> from users_app.models import Usuario</h5>
+
+        <h4>5. Consulta: Crear 3 nuevos usuarios. OK</h4>
+
+        <h5>>>> Usuario.objects.create(first_name="Rodrigo", last_name="Salas", email_address="rs@h.com", age="20")</h5>
+        
+
+        <h5>>>> Usuario.objects.create(first_name="Manuel", last_name="Quintero", email_address="mquint@h.com", age="33")</h5>
+        
+
+        <h5>>>> Usuario.objects.create(first_name="Laura", last_name="Pascal", email_address="lp@h.com", age="50")</h5>
+        
+
+        <h4>6. Consulta: recuperar todos los usuarios. OK</h4>
+
+        <h5>>>> allUsers = Usuario.objects.all()</h5>
+        <h5>>>> for m in allUsers:    </h5>
+        <h5>    print(m.first_name,  m.last_name, " / ", m.email_address, " / ", m.age, " / ", m.created_at, " / ", m.updated_at)	</h5>
+
+        <h4>7. Consulta: recuperar el último usuario. OK</h4>
+
+        <h5>>>> lastUser = Usuario.objects.last()</h5>
+        <h5>>>> print(lastUser.first_name,  lastUser.last_name, " / ", lastUser.email_address, " / ", lastUser.age, " / ", lastUser.created_at, " / ", lastUser.updated_at)	</h5>
+
+        <h4>8. Consulta: recuperar el primer usuario. OK</h4>
+
+        <h5>>>> firstUser = Usuario.objects.first()</h5>
+        <h5>>>> print(firstUser.first_name,  firstUser.last_name, " / ", firstUser.email_address, " / ", firstUser.age, " / ", firstUser.created_at, " / ", firstUser.updated_at)	</h5>
+
+        <h4>9. Consulta: Cambie el usuario con id = 3 para que su apellido sea Pancakes. OK</h4>
+
+        <h5>>>> Usuario.objects.filter(id=3).update(last_name="Pancakes")</h5>
+
+        <h4>10. Consulta: Eliminar el usuario con id = 2 de la base de datos. OK</h4>
+
+        <h5>>>> Usuario.objects.get(id=2).delete()</h5>
+
+        <h4>11. Consulta: Obtenga todos los usuarios, ordenados por su nombre. OK</h4>
+
+        <h5>>>> allUsers = Usuario.objects.order_by("first_name", "last_name")</h5>
+        <h5>>>> for m in allUsers:    </h5>
+        <h5>    print(m.first_name,  m.last_name, " / ", m.email_address, " / ", m.age, " / ", m.created_at, " / ", m.updated_at)	</h5>
+
+        <h4>12. BONUS Query: obtén todos los usuarios, ordenados por su nombre en orden descendente. OK</h4>
+
+        <h5>>>> allUsers = Usuario.objects.order_by("-first_name", "-last_name")</h5>
+        <h5>>>> for m in allUsers:    </h5>
+        <h5>    print(m.first_name,  m.last_name, " / ", m.email_address, " / ", m.age, " / ", m.created_at, " / ", m.updated_at)	</h5>
+
+    </div>
+
+
+{% endblock %}

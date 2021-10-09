@@ -4,6 +4,7 @@ from . import views
 
 urlpatterns = [
     path('admDojosNinjas', views.DojosNinjas, name='DojosNinjas'),
+    path('shellDojosNinjas', views.shellDojosNinjas, name='shellDojosNinjas'),
     
     path('admcreateDojos', views.createDojos, name='createDojos'),
     path('admupdateDojos', views.updateDojos, name='updateDojos'),
