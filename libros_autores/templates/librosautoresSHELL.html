@@ -1,0 +1,109 @@
+{% extends 'main_content.html' %}
+
+{% block content %}
+    <h5>Bienvenido, {{active_user.nombre}} !!!</h5>
+    <br>
+
+    <div class="container">
+        <h1>Tarea - Shell Tablas Books y Authors</h1>
+
+        <h4>1. Crear el modelo de clase de libro. Hecho</h4>
+        <h4>2. Crear el modelo de clase de autor. Hecho</h4>
+        <h4>3. Crea y ejecuta los archivos de migración para crear las tablas en su base de datos. OK</h4>
+        <h4>4. Crea un archivo .txt donde guardará cada una de las consultas que ejecutará en el shell. OK</h4>
+
+        <h4>5. Ejecuta el shell e importe sus modelos. OK</h4>
+        <h5>python manage.py shell</h5>
+
+        <h5>>>> from libros_autores.models import books, authors, books_authors</h5>
+
+        <h4>6. Consulta: crea 5 libros con los siguientes nombres: C Sharp, Java, Python, PHP, Ruby. Ok</h4>
+
+        <h5>>>> books.objects.create(title="C Sharp", desc="C Sharp")</h5>
+        <h5>>>> books.objects.create(title="Java", desc="Java")</h5>
+        <h5>>>> books.objects.create(title="Python", desc="Python")</h5>
+        <h5>>>> books.objects.create(title="PHP", desc="PHP")</h5>
+        <h5>>>> books.objects.create(title="Ruby", desc="Ruby")</h5>
+        
+        <h4>7. Consulta: Crea 5 autores diferentes: Jane Austen, Emily Dickinson, Fyodor Dostoevksy, William Shakespeare, Lau Tzu. Ok</h4>
+
+        <h5>>>> authors.objects.create(first_name="Jane", last_name="Austen")</h5>
+        <h5>>>> authors.objects.create(first_name="Emily", last_name="Dickinson")</h5>
+        <h5>>>> authors.objects.create(first_name="Fyodor", last_name="Dostoevksy")</h5>
+        <h5>>>> authors.objects.create(first_name="William", last_name="Shakespeare")</h5>
+        <h5>>>> authors.objects.create(first_name="Lau", last_name="Tzu")</h5>
+
+
+        <h4>8. Agregue un nuevo campo de texto en la tabla de autores llamado 'notas'. Ok</h4>
+
+        <h4>9. Cree y ejecute los archivos de migración para actualizar la tabla en su base de datos.Ok</h4>
+
+        <h4>10. Consulta: cambie el nombre del libro de C Sharp a C #. Ok</h4>
+
+        <h5>>>> books.objects.filter(title="C Sharp").update(title="C #", desc="C #")</h5>
+
+        <h4>11. Consulta: cambie el nombre del cuarto autor a Bill. Ok</h4>
+
+        <h5>>>> authors.objects.filter(id=4).update(first_name = "Bill")</h5>
+
+        <h4>12. Consulta: Asigna el primer autor a los primeros 2 libros.Ok</h4>
+
+        <h5>>>> books_authors.objects.create(book_id=1, author_id=1)</h5>
+        <h5>>>> books_authors.objects.create(book_id=2, author_id=1)</h5>
+
+        <h4>13. Consulta: Asigne el segundo autor a los primeros 3 libros.Ok</h4>
+
+        <h5>>>> books_authors.objects.create(book_id=1, author_id=2)</h5>
+        <h5>>>> books_authors.objects.create(book_id=2, author_id=2)</h5>
+        <h5>>>> books_authors.objects.create(book_id=3, author_id=2)</h5>
+
+        <h4>14. Consulta: Asigna el tercer autor a los primeros 4 libros.Ok</h4>
+
+        <h5>>>> books_authors.objects.create(book_id=1, author_id=3)</h5>
+        <h5>>>> books_authors.objects.create(book_id=2, author_id=3)</h5>
+        <h5>>>> books_authors.objects.create(book_id=3, author_id=3)</h5>
+        <h5>>>> books_authors.objects.create(book_id=4, author_id=3)</h5>
+
+        <h4>15. Consulta: Asigne el cuarto autor a los primeros 5 libros (o en otras palabras, todos los libros). Ok</h4>
+
+        <h5>>>> books_authors.objects.create(book_id=1, author_id=4)</h5>
+        <h5>>>> books_authors.objects.create(book_id=2, author_id=4)</h5>
+        <h5>>>> books_authors.objects.create(book_id=3, author_id=4)</h5>
+        <h5>>>> books_authors.objects.create(book_id=4, author_id=4)</h5>
+        <h5>>>> books_authors.objects.create(book_id=5, author_id=4)</h5>
+
+        <h4>16. Consulta: recupera a todos los autores del tercer libro. Ok</h4>
+
+        <h5>>>> autoresLibro3 = books_authors.objects.filter(book_id=3)</h5>
+        <h5>>>> for m in autoresLibro3:</h5>
+        <h5>    a = authors.objects.get(id=m.author_id)</h5>
+        <h5>    print("Id Autor:", a.id, " / Nombre:", a.first_name,  a.last_name)	</h5>
+
+        <h4>17. Consulta: eliminar al primer autor del tercer libro. Ok</h4>
+
+        <h5>>>> m = books_authors.objects.filter(book_id=3).first()</h5>
+        <h5>>>> print(m.id, m.book_id, m.author_id)	</h5>
+
+        <h5>>>> books_authors.objects.filter(book_id=3).first().delete()</h5>
+
+        <h4>18. Consulta: Agregue el quinto autor como uno de los autores del segundo libro.Ok</h4>
+
+        <h5>>>> books_authors.objects.create(book_id=2, author_id=5)</h5>
+
+        <h4>19. Consulta: Encuentra todos los libros de los que el tercer autor es parte. Ok</h4>
+
+        <h5>>>> librosAutor3 = books_authors.objects.filter(author_id=3)</h5>
+        <h5>>>> for m in librosAutor3:    </h5>
+        <h5>    a = books.objects.get(id=m.book_id)</h5>
+        <h5>    print("Id Libro:", a.id, " / Titulo Libro:", a.title,  " / Descripcion Libro:", a.desc)	</h5>
+
+        <h4>20. Consulta: Encuentra todos los autores que contribuyeron al quinto libro. Ok</h4>
+
+        <h5>>>> autoresLibro5 = books_authors.objects.filter(book_id=5)</h5>
+        <h5>>>> for m in autoresLibro5:    </h5>
+        <h5>    a = authors.objects.get(id=m.author_id)</h5>
+        <h5>    print("Id Autor:", a.id, " / Nombre:", a.first_name,  a.last_name)	</h5>
+
+    </div>
+
+{% endblock %}

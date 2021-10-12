@@ -1,0 +1,60 @@
+{% extends 'main_content.html' %}
+
+{% block content %}
+    <h5>Bienvenido, {{active_user.nombre}} !!!</h5>
+    <br>
+
+    <div class="container">
+        <h1>Listado de Libros</h1>
+        <p>
+        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#nuevoLibro" aria-expanded="false" aria-controls="nuevoLibro">
+                    Nuevo Libro ( Ingresar/No Ingresar ) 
+        </button>
+        </p>
+
+            <div class="collapse" id="nuevoLibro">
+                <form class="text-center my-5" method="POST" action="admcreateLibro">
+                {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="librotitulo" class="form-label">Título Libro: </label>
+                        <input type="text" size = 50 align = "center" id="librotitulo" name="librotitulo" placeholder="Ingrese Título del Libro">
+                    </div>
+                    <div class="mb-3">
+                        <label for="librodesc" class="form-label">Descripción: </label>
+                        <input type="text" size = 100 align = "center" id="librodesc" name="librodesc" placeholder="Ingrese Descripcion del Libro">
+                    </div>
+                    <div class="mb-3">
+                        <input type="submit" class="btn btn-success" value="Enviar datos">
+                    </div>
+                </form>
+            </div>
+
+        <table class="table" id="data">
+        <thead>
+            <tr>
+            <th scope="col">ID #</th>
+            <th scope="col">Título</th>
+            <th scope="col">Descripción</th>
+            <th scope="col">Acción</th>
+            <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for libro in lista_libros %}
+            <tr>
+            <td>{{libro.id}}</td>
+            <td>{{libro.title}}</td>
+            <td>{{libro.desc}}</td>
+            <td>
+                <form action="admgetLibroAutor" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="id" value="{{libro.id}}">
+                    <button type="submit" class="btn btn-sm btn-outline-warning">Editar Libro</button>
+                </form>
+            </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        </table>
+    </div>
+{% endblock %}

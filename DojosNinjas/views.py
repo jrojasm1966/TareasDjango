@@ -118,19 +118,19 @@ def cambiarRelacionDojosNinjas(request):
 
 def cambiarRelacionDN(request):
     # Elimina relación
-    this_ninja = Ninja.objects.get(id = request.POST['id'])	# recupera una instancia de un libro
-    this_dojo = Dojo.objects.get(id = request.POST['idPub'])	# recuperar una instancia de un editor
+    this_ninja = Ninja.objects.get(id = request.POST['id'])	# recupera una instancia de un ninja
+    this_dojo = Dojo.objects.get(id = request.POST['idPub'])	# recuperar una instancia de un dojo
         
     # 2 opciones que hacen lo mismo
-    this_dojo.dojo_id.remove(this_ninja)		# eliminar el libro de la lista de libros de este editor
+    this_dojo.dojo_id.remove(this_ninja)		# eliminar el dojo de la lista de libros de este ninja
     # O
-    #this_ninja.dojo_id.remove(this_dojo)	# eliminar al editor de la lista de editores de este libro
+    #this_ninja.dojo_id.remove(this_dojo)	# eliminar al ninja de la lista de dojo
 
     # Agrega relación
     # 2 opciones que hacen lo mismo
-    this_dojo.dojo_id.add(this_ninja)		# añadir el libro a la lista de libros de esta editorial
+    this_dojo.dojo_id.add(this_ninja)		# añadir el dojo a la lista de ninja
     # O
-    #this_ninja.dojo_id.add(this_dojo)	# agregar el editor a la lista de editores de este libro
+    #this_ninja.dojo_id.add(this_dojo)	# agregar el ninja a la lista de dojo
 
     return redirect('/admDojosNinjas')
     

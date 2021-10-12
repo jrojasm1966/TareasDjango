@@ -1,0 +1,53 @@
+{% extends 'main_content.html' %}
+
+{% block content %}
+    <div class="container">
+        <h1 align="center">Autor ID: {{getAutor.id}}</h1>
+
+        <form class="text-center my-5" method="POST" action="admupdateAutorLibro">
+        {% csrf_token %}
+            <input type="hidden" name="id" value="{{getAutor.id}}">
+                    <div class="mb-3">
+                        <label for="nombreAutor" class="form-label">Nombre Autor: </label>
+                        <input type="text" size = 50 align = "center" id="nombreAutor" value="{{ getAutor.first_name }}" name="nombreAutor" placeholder="Ingrese Nombre del Autor">
+                    </div>
+                    <div class="mb-3">
+                        <label for="apeAutor" class="form-label">Apellido Autor: </label>
+                        <input type="text" size = 50 align = "center" id="apeAutor" value="{{ getAutor.last_name }}" name="apeAutor" placeholder="Ingrese Apellido del Autor">
+                    </div>
+                    <div class="mb-3">
+                        <label for="notasAutor" class="form-label">Notas: </label>
+                        <input type="text" size = 100 align = "center" id="notasAutor" value="{{ getAutor.notas }}" name="notasAutor" placeholder="Ingrese Notas del Autor">
+                    </div>
+            <div class="mb-3">
+                    <label for="" class="form-label">Libros asociados al Autor : </label>
+                    {% for ba in getBookAutor %}
+                        {% for a in getBook %}
+                            {% if ba.book_id == a.id %}
+                                <h5> {{a.title}}</h5>
+                            {% endif %}
+                        {% endfor %}
+                    {% endfor %}
+            </div>
+            <div class="mb-3">
+                    <label for="" class="form-label">Libros Disponibles a Elegir : </label>
+                    <select name="idLibro" id="idLibro">
+                        <option> Seleccione </option>
+                        {% for bd in getBookDisp %}
+                            {% for b in getBook %}
+                                {% if bd.book_id == b.id %}
+                                    <option value="{{b.id}}"> {{b.title}} </option>
+                                {% endif %}
+                            {% endfor %}
+                        {% endfor %}
+                    </select>
+            </div>
+
+            <div class="mb-3">
+                <a class="btn btn-primary" href="/admautores" role="button">Volver</a>
+                <input type="submit" class="btn btn-success" value="Actualizar datos">
+            </div>
+
+        </form>
+    </div>
+{% endblock %}

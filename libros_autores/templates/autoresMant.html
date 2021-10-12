@@ -1,0 +1,66 @@
+{% extends 'main_content.html' %}
+
+{% block content %}
+    <h5>Bienvenido, {{active_user.nombre}} !!!</h5>
+    <br>
+
+    <div class="container">
+        <h1>Listado de Autores</h1>
+        <p>
+        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#nuevoAutor" aria-expanded="false" aria-controls="nuevoAutor">
+                    Nuevo Autor ( Ingresar/No Ingresar ) 
+        </button>
+        </p>
+
+            <div class="collapse" id="nuevoAutor">
+                <form class="text-center my-5" method="POST" action="admcreateAutorLibro">
+                {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="nombreAutor" class="form-label">Nombre Autor: </label>
+                        <input type="text" size = 50 align = "center" id="nombreAutor" name="nombreAutor" placeholder="Ingrese Nombre del Autor">
+                    </div>
+                    <div class="mb-3">
+                        <label for="apeAutor" class="form-label">Apellido Autor: </label>
+                        <input type="text" size = 50 align = "center" id="apeAutor" name="apeAutor" placeholder="Ingrese Apellido del Autor">
+                    </div>
+                    <div class="mb-3">
+                        <label for="notasAutor" class="form-label">Notas: </label>
+                        <input type="text" size = 100 align = "center" id="notasAutor" name="notasAutor" placeholder="Ingrese Notas del Autor">
+                    </div>
+                    <div class="mb-3">
+                        <input type="submit" class="btn btn-success" value="Enviar datos">
+                    </div>
+                </form>
+            </div>
+
+        <table class="table" id="data">
+        <thead>
+            <tr>
+            <th scope="col">ID #</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Apellido</th>
+            <th scope="col">Notas</th>
+            <th scope="col">Acción</th>
+            <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for autor in lista_autores %}
+            <tr>
+            <td>{{autor.id}}</td>
+            <td>{{autor.first_name}}</td>
+            <td>{{autor.last_name}}</td>
+            <td>{{autor.notas}}</td>
+            <td>
+                <form action="admgetAutorLibro" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="id" value="{{autor.id}}">
+                    <button type="submit" class="btn btn-sm btn-outline-warning">Editar Autor</button>
+                </form>
+            </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        </table>
+    </div>
+{% endblock %}

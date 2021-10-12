@@ -1,0 +1,48 @@
+{% extends 'main_content.html' %}
+
+{% block content %}
+    <div class="container">
+        <h1 align="center">Libro ID: {{getBook.id}}</h1>
+        <form class="text-center my-5" method="POST" action="admupdateLibroAutor">
+        {% csrf_token %}
+            <input type="hidden" name="id" value="{{getBook.id}}">
+            <div class="mb-3">
+                <label for="titulo" class="form-label">Titulo: </label>
+                <input type="text" size = 50 align = "center" id="titulo" value="{{ getBook.title }}" name="titulo" placeholder="Ingrese Título">
+            </div>
+            <div class="mb-3">
+                <label for="desc" class="form-label">Descripción: </label>
+                <input type="text" size = 100 align = "center" id="desc" value="{{ getBook.desc }}" name="desc" placeholder="Ingrese Descripción">
+            </div>
+            <div class="mb-3">
+                    <label for="" class="form-label">Autores asociados al Libro : </label>
+                    {% for ba in getBookAutor %}
+                        {% for a in getAutor %}
+                            {% if ba.author_id == a.id %}
+                                <h5> {{a.first_name}} {{a.last_name}}</h5>
+                            {% endif %}
+                        {% endfor %}
+                    {% endfor %}
+            </div>
+            <div class="mb-3">
+                    <label for="" class="form-label">Autores Disponibles a Elegir : </label>
+                    <select name="idAutor" id="idAutor">
+                        <option> Seleccione </option>
+                        {% for ad in getAutorDisp %}
+                            {% for a in getAutor %}
+                                {% if ad.author_id == a.id %}
+                                    <option value="{{a.id}}"> {{a.first_name}} {{a.last_name}} </option>
+                                {% endif %}
+                            {% endfor %}
+                        {% endfor %}
+                    </select>
+            </div>
+
+            <div class="mb-3">
+                <a class="btn btn-primary" href="/admlibros" role="button">Volver</a>
+                <input type="submit" class="btn btn-success" value="Actualizar datos">
+            </div>
+
+        </form>
+    </div>
+{% endblock %}

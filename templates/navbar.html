@@ -26,6 +26,14 @@
               <a href="admlibrosPublicadores"  class="nav-link">CRUD Publicadores/Libros y Relaciones</a>
           </li>
         {% endif %}
+        {% if paginaActual == "librosAutores" %}
+          <li class="nav-item d-none d-sm-inline-block">
+              <a href="admlibros"  class="nav-link">Libros</a>
+          </li>
+          <li class="nav-item d-none d-sm-inline-block">
+              <a href="admautores"  class="nav-link">Autores</a>
+          </li>
+        {% endif %}
     </ul>
 
     <!-- SEARCH FORM -->

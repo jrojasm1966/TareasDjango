@@ -1,0 +1,32 @@
+{% extends 'main_content.html' %}
+
+{% block content %}
+    <h5>Bienvenido, {{active_user.nombre}} !!!</h5>
+    <br>
+    <div class="container">
+        <h1 align="center">Actualizar Ninja</h1>
+
+        <form class="text-center my-5" method="POST" action="admupdateNinjas">
+        {% csrf_token %}
+            <input type="hidden" name="id" value="{{getNinja.id}}">
+                <div class="mb-3">
+                    <label for="nameNinja" class="form-label">Nombre Ninja: </label>
+                    <input type="text" size = 50 align = "center" id="nameNinja" name="nameNinja" value="{{getNinja.nombre}}" placeholder="Ingrese Nombre">
+                </div>
+                <div class="mb-3">
+                    <label for="apeNinja" class="form-label">Apellido Ninja: </label>
+                    <input type="text" size = 50 align = "center" id="apeNinja" name="apeNinja" value="{{getNinja.apellido}}" placeholder="Ingrese Apellido">
+                </div>
+                <div class="mb-3">
+                    <label for="" class="form-label">Su Dojo : </label>
+                    <input type="text" size = 50 align = "center" value="{{getNinja.dojo_id.nombre}}">
+                </div>
+
+            <div class="mb-3">
+                <a class="btn btn-primary" href="/admDojosNinjas" role="button">Volver</a>
+                <input type="submit" class="btn btn-success" value="Actualizar datos">
+            </div>
+        </form>
+    </div>
+
+{% endblock %}
