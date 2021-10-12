@@ -1,0 +1,35 @@
+{% extends 'main_content.html' %}
+
+{% block content %}
+    <h5>Bienvenido, {{active_user.nombre}} !!!</h5>
+    <br>
+
+        <h1 >TV Show</h1>
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col">
+                <h1 class="text-left">TV Show: {{ show.id }} - {{ show.title }}</h1>
+            </div>
+            <div class="offset-md-5">
+                <a href="/shows">Go Back</a>
+            </div>
+        </div>
+
+        <div class="row text-left mt-5">
+            <form action="/shows/{{ show.id }}" method="POST">
+                {% csrf_token %}
+                <p><label><span class="tv-show-font">Title:</span><span class="tv-show-title"> {{ show.title }}</span></label></p>
+                <p><label><span class="tv-show-font">Network:</span><span class="tv-show-title"> {{ show.network }}</span></label></p>
+                <p><label><span class="tv-show-font">Release Date:</span><span class="tv-show-title"> {{ show.release_date }} </span></label></p>
+                <p><label><span class="tv-show-font">Description:</span> <span class="tv-show-title"> {{ show.description }}</span></label></p>
+                <p class="mt-5"><label><span class="tv-show-font">Last Updated:</span><span class="tv-show-title"> {{show.updated_at}}</span></p>
+                <div class="row form-group text-left mt-4">
+                    <a href="/shows/{{ show.id }}/edit" class="btn btn-primary pl-3 pr-3 m-2" role="button">Edit</a>
+                    <a href="/shows/{{ show.id }}/destroy" class="btn btn-outline-danger pl-3 pr-3 m-2">Delete</a>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+
+{% endblock %}

@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "SQLaORM",
     "users_app",
     "libros_autores",
+    "show",
     "polls",
     "pokes",
     "DojosNinjas",

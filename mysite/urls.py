@@ -22,6 +22,7 @@ urlpatterns = [
     path('', include('SQLaORM.urls')),
     path('', include('users_app.urls')),
     path('', include('libros_autores.urls')),
+    path('', include('show.urls')),
     path('', include('polls.urls')),
     path('', include('pokes.urls')),
     path('', include('DojosNinjas.urls')),
